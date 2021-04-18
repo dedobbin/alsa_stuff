@@ -15,7 +15,7 @@ int main (int argc, char* argv[])
 	snd_pcm_t *handle;
 	snd_pcm_hw_params_t *params;
 
-	if (!open_pcm(&handle, &params)){
+	if (!open_pcm(&handle, &params, 44100)){
 		fprintf(stderr, "unable to init pcm\n");
 		return 1;
 	}

@@ -6,7 +6,8 @@
 #include <unistd.h>
 #include <string.h>
 
-int open_pcm(snd_pcm_t **handle, snd_pcm_hw_params_t **params)
+// regarding bitrate, bits per second, 44100 is CD quality
+int open_pcm(snd_pcm_t **handle, snd_pcm_hw_params_t **params, int bitrate)
 {
 	int rc = snd_pcm_open(handle, "default",
 						SND_PCM_STREAM_PLAYBACK, 0);
@@ -20,8 +21,6 @@ int open_pcm(snd_pcm_t **handle, snd_pcm_hw_params_t **params)
 	snd_pcm_hw_params_set_format(*handle, *params, SND_PCM_FORMAT_S16_LE); //16bit signed, little endian
 	snd_pcm_hw_params_set_channels(*handle, *params, 2);
 
-	// bitrate, bits per second, 44100 is CD quality
-	int bitrate = 44100;
 	int dir = 0;
 	snd_pcm_hw_params_set_rate_near(*handle, *params, &bitrate, &dir);
 
