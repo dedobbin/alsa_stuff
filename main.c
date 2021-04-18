@@ -20,7 +20,10 @@ int main (int argc, char* argv[])
 		return 1;
 	}
 
-	if (!play_audio(audio_input_path, handle, params));
+	if (!play_audio(audio_input_path, handle, params)){
+		fprintf(stderr, "unable to play audio\n");
+		return 1;
+	}
 
 	close_pcm(handle, params);
 

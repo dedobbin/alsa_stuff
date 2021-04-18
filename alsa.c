@@ -56,7 +56,7 @@ int play_audio(char* input_path, snd_pcm_t *handle, snd_pcm_hw_params_t *params)
 			break;
 		default:
 			fprintf(stderr, "play_audio: unsuported format\n");
-			return 1;
+			return 0;
 	}
 	
 	// Get data size of 1 period
@@ -91,7 +91,7 @@ int play_audio(char* input_path, snd_pcm_t *handle, snd_pcm_hw_params_t *params)
 	fclose(fp);
 	free(audio_buffer);
 
-	return 0;
+	return 1;
 }
 
 void close_pcm(snd_pcm_t *handle, snd_pcm_hw_params_t *params)
