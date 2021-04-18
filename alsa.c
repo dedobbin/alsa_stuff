@@ -7,7 +7,7 @@
 #include <string.h>
 
 // regarding bitrate, bits per second, 44100 is CD quality
-int open_pcm(snd_pcm_t **handle, snd_pcm_hw_params_t **params, int bitrate)
+int pcm_init_playback(snd_pcm_t **handle, snd_pcm_hw_params_t **params, int bitrate)
 {
 	int rc = snd_pcm_open(handle, "default",
 						SND_PCM_STREAM_PLAYBACK, 0);
@@ -38,7 +38,7 @@ int open_pcm(snd_pcm_t **handle, snd_pcm_hw_params_t **params, int bitrate)
 	return 1;
 }
 
-int play_audio(char* input_path, snd_pcm_t *handle, snd_pcm_hw_params_t *params)
+int play_audio_from_file(char* input_path, snd_pcm_t *handle, snd_pcm_hw_params_t *params)
 {
 	int dir = 0;
 	snd_pcm_uframes_t frames;
@@ -94,9 +94,8 @@ int play_audio(char* input_path, snd_pcm_t *handle, snd_pcm_hw_params_t *params)
 	return 1;
 }
 
-void close_pcm(snd_pcm_t *handle, snd_pcm_hw_params_t *params)
+void pcm_close(snd_pcm_t *handle)
 {
 	snd_pcm_drain(handle);
 	snd_pcm_close(handle);
-	//snd_pcm_hw_params_free(params); //TODO: properly free, this doesn't work..
 }

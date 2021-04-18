@@ -15,17 +15,18 @@ int main (int argc, char* argv[])
 	snd_pcm_t *handle;
 	snd_pcm_hw_params_t *params;
 
-	if (!open_pcm(&handle, &params, 44100)){
+	if (!pcm_init_playback(&handle, &params, 44100)){
 		fprintf(stderr, "unable to init pcm\n");
 		return 1;
 	}
 
-	if (!play_audio(audio_input_path, handle, params)){
+	if (!play_audio_from_file(audio_input_path, handle, params)){
 		fprintf(stderr, "unable to play audio\n");
 		return 1;
 	}
 
-	close_pcm(handle, params);
+	pcm_close(handle);
+	//snd_pcm_hw_params_free(params); //TODO: properly free, this doesn't work..
 
 	return 0;
 }
